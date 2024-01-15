@@ -9,7 +9,7 @@ class BankController extends Controller
 {
     public function index()
     {
-        $banks = Bank::all();
+        $banks = Bank::with("bank_accounts")->get();
 
         return response()->json($banks, 200);
     }

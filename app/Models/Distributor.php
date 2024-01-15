@@ -47,7 +47,12 @@ class Distributor extends Model
     public function erp()
     {
         return $this->belongsTo(DistributionAssignedArea::class);
-    }      
+    }
+    
+    public function bankAccounts()
+    {
+        return $this->morphMany(BankAccount::class, 'owner');
+    }
     
   
 }

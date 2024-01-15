@@ -10,7 +10,7 @@ class DistributorController extends Controller
 {
     public function index()
     {
-        $distributors = Distributor::all();
+        $distributors = Distributor::with("bankAccounts")->get();
 
         return response()->json($distributors, 200);
     }
@@ -18,6 +18,10 @@ class DistributorController extends Controller
     public function show($id)
     {
         $distributor = Distributor::findOrFail($id);
+
+        $bankAccounts= $distributor->bankAccounts;
+
+        // $distributor->bankAccounts= $bankAccounts;
 
         return response()->json($distributor, 200);
     }

@@ -9,7 +9,7 @@ class AdministrativeDivisionController extends Controller
 {
     public function index()
     {
-        $administritiveDivisions = AdministrativeDivision::all();
+        $administritiveDivisions = AdministrativeDivision::with("districts")->get();
 
         return response()->json($administritiveDivisions, 200);
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2024 at 10:41 AM
+-- Generation Time: Jan 15, 2024 at 09:39 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -88,7 +88,7 @@ CREATE TABLE `bank_accounts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `bank_id` bigint(20) UNSIGNED DEFAULT NULL,
   `owner_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `account_owner_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `owner_id` bigint(20) UNSIGNED DEFAULT NULL,
   `bank_account_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -103,8 +103,9 @@ CREATE TABLE `bank_accounts` (
 -- Dumping data for table `bank_accounts`
 --
 
-INSERT INTO `bank_accounts` (`id`, `bank_id`, `owner_type`, `account_owner_id`, `bank_account_number`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(3, NULL, 'bad', NULL, '793723', 'false', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:42:26', '2024-01-14 02:42:26');
+INSERT INTO `bank_accounts` (`id`, `bank_id`, `owner_type`, `owner_id`, `bank_account_number`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
+(3, 1, 'sales_organizations', 1, '9687968796', 'false', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:42:26', '2024-01-14 02:42:26'),
+(4, 1, 'distributors', 1, '55555555', 'false', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:42:26', '2024-01-14 02:42:26');
 
 -- --------------------------------------------------------
 
@@ -175,7 +176,8 @@ CREATE TABLE `distributors` (
 --
 
 INSERT INTO `distributors` (`id`, `distributor_name`, `storage_id`, `upazila_id`, `erp_id`, `proprietor_name`, `proprietor_dob`, `address`, `mobile_number`, `has_printer`, `has_pc`, `has_live_app`, `has_direct_sale`, `opening_date`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `union`, `ward`, `village`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(1, 'dob', NULL, NULL, NULL, 'hsh', '34', 'hbs', '473', 0, 1, 0, 1, '45', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 'false', 'hsks', 'kdjsd', NULL, NULL, '2024-01-14 03:09:47', '2024-01-14 03:12:14');
+(1, 'dob', NULL, NULL, NULL, 'hsh', '34', 'hbs', '473', 0, 1, 0, 1, '45', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 'false', 'hsks', 'kdjsd', NULL, NULL, '2024-01-14 03:09:47', '2024-01-14 03:12:14'),
+(2, 'dob', NULL, NULL, NULL, 'hsh', '34', 'hbs', '473', 0, 1, 0, 1, '45', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 'false', NULL, NULL, NULL, NULL, '2024-01-15 00:28:35', '2024-01-15 00:28:35');
 
 -- --------------------------------------------------------
 
@@ -201,8 +203,8 @@ CREATE TABLE `districts` (
 --
 
 INSERT INTO `districts` (`id`, `division_id`, `district_name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(2, NULL, 'bxxckja', '1', 'js', 'js', NULL, NULL, '2024-01-14 00:30:44', '2024-01-14 02:47:27'),
-(3, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-14 02:47:03', '2024-01-14 02:47:03');
+(2, 1, 'bxxckja', '1', 'js', 'js', NULL, NULL, '2024-01-14 00:30:44', '2024-01-14 02:47:27'),
+(3, 2, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-14 02:47:03', '2024-01-14 02:47:03');
 
 -- --------------------------------------------------------
 
@@ -425,8 +427,8 @@ ALTER TABLE `banks`
 --
 ALTER TABLE `bank_accounts`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `bankaccounts_bank_id_foreign` (`bank_id`),
-  ADD KEY `bankaccounts_account_owner_id_foreign` (`account_owner_id`);
+  ADD KEY `bank_accounts_account_owner_id_foreign` (`owner_id`),
+  ADD KEY `bank_accounts_bank_id_foreign` (`bank_id`);
 
 --
 -- Indexes for table `distribution_assigned_areas`
@@ -439,16 +441,16 @@ ALTER TABLE `distribution_assigned_areas`
 --
 ALTER TABLE `distributors`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `distributor_storage_id_foreign` (`storage_id`),
-  ADD KEY `distributor_upazila_id_foreign` (`upazila_id`),
-  ADD KEY `distributor_erp_id_foreign` (`erp_id`);
+  ADD KEY `distributors_erp_id_foreign` (`erp_id`),
+  ADD KEY `distributors_storage_id_foreign` (`storage_id`),
+  ADD KEY `distributors_upazila_id_foreign` (`upazila_id`);
 
 --
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `district_division_id_foreign` (`division_id`);
+  ADD KEY `districts_division_id_foreign` (`division_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -494,7 +496,7 @@ ALTER TABLE `storages`
 --
 ALTER TABLE `upazilas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `upazila_district_id_foreign` (`district_id`);
+  ADD KEY `upazilas_district_id_foreign` (`district_id`);
 
 --
 -- Indexes for table `users`
@@ -523,7 +525,7 @@ ALTER TABLE `banks`
 -- AUTO_INCREMENT for table `bank_accounts`
 --
 ALTER TABLE `bank_accounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `distribution_assigned_areas`
@@ -535,7 +537,7 @@ ALTER TABLE `distribution_assigned_areas`
 -- AUTO_INCREMENT for table `distributors`
 --
 ALTER TABLE `distributors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -593,28 +595,27 @@ ALTER TABLE `users`
 -- Constraints for table `bank_accounts`
 --
 ALTER TABLE `bank_accounts`
-  ADD CONSTRAINT `bankaccounts_account_owner_id_foreign` FOREIGN KEY (`account_owner_id`) REFERENCES `sales_organizations` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `bankaccounts_bank_id_foreign` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `bank_accounts_bank_id_foreign` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `distributors`
 --
 ALTER TABLE `distributors`
-  ADD CONSTRAINT `distributor_erp_id_foreign` FOREIGN KEY (`erp_id`) REFERENCES `distribution_assigned_areas` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `distributor_storage_id_foreign` FOREIGN KEY (`storage_id`) REFERENCES `storages` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `distributor_upazila_id_foreign` FOREIGN KEY (`upazila_id`) REFERENCES `upazilas` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `distributors_erp_id_foreign` FOREIGN KEY (`erp_id`) REFERENCES `distribution_assigned_areas` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `distributors_storage_id_foreign` FOREIGN KEY (`storage_id`) REFERENCES `storages` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `distributors_upazila_id_foreign` FOREIGN KEY (`upazila_id`) REFERENCES `upazilas` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `districts`
 --
 ALTER TABLE `districts`
-  ADD CONSTRAINT `district_division_id_foreign` FOREIGN KEY (`division_id`) REFERENCES `administrative_divisions` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `districts_division_id_foreign` FOREIGN KEY (`division_id`) REFERENCES `administrative_divisions` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `upazilas`
 --
 ALTER TABLE `upazilas`
-  ADD CONSTRAINT `upazila_district_id_foreign` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `upazilas_district_id_foreign` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

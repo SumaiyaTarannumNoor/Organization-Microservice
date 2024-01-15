@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class SalesOrganization extends Model
 {
@@ -15,5 +16,10 @@ class SalesOrganization extends Model
         'ip',
         'browser',
     ];
+
+    public function bankAccounts()
+    {
+        return $this->morphMany(BankAccount::class, 'owner');
+    }
                 
 }

@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\SalesOrganization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SalesOrganizationController extends Controller
 {
     public function index()
     {
-        $salesOrganizations = SalesOrganization::all();
+
+        
+        $salesOrganizations = SalesOrganization::with("bankAccounts")->get();
+
 
         return response()->json($salesOrganizations, 200);
     }

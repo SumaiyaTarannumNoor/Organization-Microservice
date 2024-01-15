@@ -10,7 +10,7 @@ class UpazilaController extends Controller
     //
     public function index()
     {
-        $upazilas = Upazila::all();
+        $upazilas = Upazila::with(["district", "distributor"])->get();
 
         return response()->json($upazilas, 200);
     }

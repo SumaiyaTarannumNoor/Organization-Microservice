@@ -19,7 +19,12 @@ class District extends Model
 
     public function division()
     {
-        return $this->belongsTo(AdministritiveDivision::class);
-    }             
+        return $this->belongsTo(AdministrativeDivision::class);
+    }     
+    
+    public function upazilas()
+    {
+        return $this->hasMany(District::class);
+    } 
 }
 

@@ -19,4 +19,8 @@ class Bank extends Model
         'ip',
         'browser',
     ];
+    public function bank_accounts()
+    {
+        return $this->hasMany(Bank_accounts::class);
+    } 
 }

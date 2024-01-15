@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class BankAccount extends Model
 {
     protected $fillable = [
         'bank_id',
         'owner_type',
-        'account_owner_id',
+        'owner_id',
         'bank_account_number',
         'status',
         'created_by',
@@ -24,8 +25,8 @@ class BankAccount extends Model
         return $this->belongsTo(Bank::class);
     }
 
-    public function accountOwner()
+    public function owner()
     {
-        return $this->belongsTo(SalesOrganization::class, 'account_owner_id');
-    }  
+        return $this->morphTo();
+    }
 }
