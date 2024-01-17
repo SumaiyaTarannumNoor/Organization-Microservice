@@ -11,36 +11,78 @@ class AdministrativeDivisionController extends Controller
     {
         $administritiveDivisions = AdministrativeDivision::with("districts")->get();
 
-        return response()->json($administritiveDivisions, 200);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Administritive Divisions showing successfully.","data" => $administritiveDivisions]);
     }
 
     public function show($id)
     {
-        $administritiveDivision = AdministrativeDivision::findOrFail($id);
+        $administritiveDivisions = AdministrativeDivision::findOrFail($id);
 
-        return response()->json($administritiveDivision, 200);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Administritive Division showing successfully.","data" => $administritiveDivisions]);
     }
 
     public function store(Request $request)
     {
-        $administritiveDivision = AdministrativeDivision::create($request->all());
+        try {
+            $request->validate([
+                'status' => 'nullable|boolean',
+                'create_by' => 'nullable|string|max:255',
+                'modified_by' => 'nullable|string|max:255',
+                'modified_at' => 'nullable|date',
+                'ip' => 'nullable|ip',
+                'browser' => 'nullable|string|max:255',
+            ]);
 
-        return response()->json($administritiveDivision, 201);
+
+
+        $administritiveDivisions = AdministrativeDivision::create($request->all());
+
+        return response()->json(["statusCode" => 201, "success" => true, "message"=>"Administritive Division created successfully.","data" => $administritiveDivisions]);
+        }
+        catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
+
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            return response()->json(["message" => "Error creating product category", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $administritiveDivision = AdministrativeDivision::findOrFail($id);
-        $administritiveDivision->update($request->all());
+        try {
+            $request->validate([
+                'status' => 'nullable|boolean',
+                'create_by' => 'nullable|string|max:255',
+                'modified_by' => 'nullable|string|max:255',
+                'modified_at' => 'nullable|date',
+                'ip' => 'nullable|ip',
+                'browser' => 'nullable|string|max:255',
+            ]);
 
-        return response()->json($administritiveDivision, 200);
+
+        $administritiveDivisions = AdministrativeDivision::findOrFail($id);
+        $administritiveDivisions->update($request->all());
+
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Administritive Division updated successfully.","data" => $administritiveDivisions]);
+        }
+        catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
+
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            return response()->json(["message" => "Error updating product category", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
+        }
     }
 
     public function destroy($id)
     {
-        $administritiveDivision = AdministrativeDivision::findOrFail($id);
-        $administritiveDivision->delete();
+        $administritiveDivisions = AdministrativeDivision::findOrFail($id);
+        $administritiveDivisions->delete();
 
         return response()->json(null, 204);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Administritive Division deleted successfully.","data" => $administritiveDivisions]);
     }
 }

@@ -11,36 +11,77 @@ class DistrictController extends Controller
     {
         $districts = District::with(["division", "upazilas"])->get();
 
-        return response()->json($districts, 200);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Districts showing successfully.","data" => $districts]);
     }
 
     public function show($id)
     {
-        $district = District::findOrFail($id);
+        $districts = District::findOrFail($id);
 
-        return response()->json($district, 200);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"District showing successfully.","data" => $districts]);
+
     }
 
     public function store(Request $request)
     {
-        $district = District::create($request->all());
+        try {
+            $request->validate([
+                'division_id' => 'nullable|exists:administritivedivision,id',
+                'district_name' => 'required|string|max:255',
+                'status' => 'nullable|boolean',
+                'created_by' => 'nullable|string|max:255',
+                'updated_by' => 'nullable|string|max:255',
+                'ip' => 'nullable|ip',
+                'browser' => 'nullable|string|max:255',
+            ]);
 
-        return response()->json($district, 201);
+        $districts = District::create($request->all());
+
+        return response()->json(["statusCode" => 201, "success" => true, "message"=>"District created successfully.","data" => $districts]);
+        }
+        catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
+
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            return response()->json(["message" => "Error creating district information", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $district = District::findOrFail($id);
-        $district->update($request->all());
+        try {
+            $request->validate([
+                'division_id' => 'nullable|exists:administritivedivision,id',
+                'district_name' => 'required|string|max:255',
+                'status' => 'nullable|boolean',
+                'created_by' => 'nullable|string|max:255',
+                'updated_by' => 'nullable|string|max:255',
+                'ip' => 'nullable|ip',
+                'browser' => 'nullable|string|max:255',
+            ]);
+        $districts = District::findOrFail($id);
+        $districts->update($request->all());
 
-        return response()->json($district, 200);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"District updated successfully.","data" => $districts]);
+        }
+        catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
+
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            return response()->json(["message" => "Error updating district information", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
+        }
     }
 
     public function destroy($id)
     {
-        $district = District::findOrFail($id);
-        $district->delete();
+        $districts = District::findOrFail($id);
+        $districts->delete();
 
-        return response()->json(null, 204);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"District deleted successfully.","data" => $districts]);
+
     }
 }

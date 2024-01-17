@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2024 at 09:39 AM
+-- Generation Time: Jan 17, 2024 at 11:22 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -45,7 +45,10 @@ CREATE TABLE `administrative_divisions` (
 
 INSERT INTO `administrative_divisions` (`id`, `status`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
 (1, 'false', 'jdfdss', 'js', NULL, NULL, NULL, '2024-01-14 00:01:25', '2024-01-14 02:52:09'),
-(2, 'true', NULL, 'js', NULL, NULL, NULL, '2024-01-14 00:33:48', '2024-01-14 00:33:48');
+(2, 'true', NULL, 'js', NULL, NULL, NULL, '2024-01-14 00:33:48', '2024-01-14 00:33:48'),
+(3, '1', 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:02:21', '2024-01-17 04:02:21'),
+(4, '1', 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:18:12', '2024-01-17 04:18:12'),
+(5, '1', 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:18:51', '2024-01-17 04:18:51');
 
 -- --------------------------------------------------------
 
@@ -76,7 +79,9 @@ CREATE TABLE `banks` (
 INSERT INTO `banks` (`id`, `bank_name`, `description`, `contact_person`, `contact_person_mobile`, `status`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
 (1, 'mtb', 'ndhusidh', 'kk', '098', 'true', NULL, 'hj', NULL, NULL, NULL, '2024-01-14 00:24:16', '2024-01-14 00:39:29'),
 (2, 'mtb', 'nice', 'kk', '098', 'true', NULL, 'hj', NULL, NULL, NULL, '2024-01-14 00:39:05', '2024-01-14 00:39:05'),
-(3, 'mtb', 'nice', 'kk', '098', 'true', NULL, 'hj', NULL, NULL, NULL, '2024-01-14 00:40:17', '2024-01-14 00:40:17');
+(3, 'mtb', 'nice', 'kk', '098', 'true', NULL, 'hj', NULL, NULL, NULL, '2024-01-14 00:40:17', '2024-01-14 00:40:17'),
+(4, 'mtb', 'nice', 'kk', '098', '1', 'kj', 'hj', NULL, NULL, NULL, '2024-01-17 04:07:45', '2024-01-17 04:07:45'),
+(5, 'mtb', 'nice', 'kk', '098', '1', 'kj', 'hj', NULL, NULL, NULL, '2024-01-17 04:19:56', '2024-01-17 04:19:56');
 
 -- --------------------------------------------------------
 
@@ -105,7 +110,12 @@ CREATE TABLE `bank_accounts` (
 
 INSERT INTO `bank_accounts` (`id`, `bank_id`, `owner_type`, `owner_id`, `bank_account_number`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
 (3, 1, 'sales_organizations', 1, '9687968796', 'false', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:42:26', '2024-01-14 02:42:26'),
-(4, 1, 'distributors', 1, '55555555', 'false', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:42:26', '2024-01-14 02:42:26');
+(4, 1, 'distributors', 1, '55555555', 'false', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:42:26', '2024-01-14 02:42:26'),
+(5, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 03:26:45', '2024-01-17 03:26:45'),
+(6, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 03:27:10', '2024-01-17 03:27:10'),
+(7, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 03:30:47', '2024-01-17 03:30:47'),
+(8, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 04:05:17', '2024-01-17 04:05:17'),
+(9, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 04:06:51', '2024-01-17 04:06:51');
 
 -- --------------------------------------------------------
 
@@ -133,7 +143,9 @@ CREATE TABLE `distribution_assigned_areas` (
 INSERT INTO `distribution_assigned_areas` (`id`, `distributor_id`, `area_id`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
 (1, NULL, NULL, 'kkk', 'js', NULL, NULL, NULL, '2024-01-14 00:20:36', '2024-01-14 00:38:23'),
 (2, NULL, NULL, NULL, 'js', NULL, NULL, NULL, '2024-01-14 00:36:20', '2024-01-14 00:36:20'),
-(3, NULL, NULL, NULL, 'js', NULL, NULL, NULL, '2024-01-14 02:44:04', '2024-01-14 02:44:04');
+(3, NULL, NULL, NULL, 'js', NULL, NULL, NULL, '2024-01-14 02:44:04', '2024-01-14 02:44:04'),
+(4, NULL, NULL, 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:08:22', '2024-01-17 04:08:22'),
+(5, NULL, NULL, 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:20:40', '2024-01-17 04:20:40');
 
 -- --------------------------------------------------------
 
@@ -177,7 +189,9 @@ CREATE TABLE `distributors` (
 
 INSERT INTO `distributors` (`id`, `distributor_name`, `storage_id`, `upazila_id`, `erp_id`, `proprietor_name`, `proprietor_dob`, `address`, `mobile_number`, `has_printer`, `has_pc`, `has_live_app`, `has_direct_sale`, `opening_date`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `union`, `ward`, `village`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
 (1, 'dob', NULL, NULL, NULL, 'hsh', '34', 'hbs', '473', 0, 1, 0, 1, '45', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 'false', 'hsks', 'kdjsd', NULL, NULL, '2024-01-14 03:09:47', '2024-01-14 03:12:14'),
-(2, 'dob', NULL, NULL, NULL, 'hsh', '34', 'hbs', '473', 0, 1, 0, 1, '45', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 'false', NULL, NULL, NULL, NULL, '2024-01-15 00:28:35', '2024-01-15 00:28:35');
+(2, 'dob', NULL, NULL, NULL, 'hsh', '34', 'hbs', '473', 0, 1, 0, 1, '45', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 'false', NULL, NULL, NULL, NULL, '2024-01-15 00:28:35', '2024-01-15 00:28:35'),
+(3, 'dob', NULL, NULL, NULL, 'hsh', '1989-08-23', 'hbs', '473', 0, 0, 0, 0, '1989-08-23', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', '0', 'hsks', 'kdjsd', NULL, NULL, '2024-01-17 04:10:30', '2024-01-17 04:10:30'),
+(4, 'dob', NULL, NULL, NULL, 'hsh', '1989-08-23', 'hbs', '473', 0, 0, 0, 0, '1989-08-23', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', '0', 'hsks', 'kdjsd', NULL, NULL, '2024-01-17 04:12:10', '2024-01-17 04:12:10');
 
 -- --------------------------------------------------------
 
@@ -204,7 +218,9 @@ CREATE TABLE `districts` (
 
 INSERT INTO `districts` (`id`, `division_id`, `district_name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
 (2, 1, 'bxxckja', '1', 'js', 'js', NULL, NULL, '2024-01-14 00:30:44', '2024-01-14 02:47:27'),
-(3, 2, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-14 02:47:03', '2024-01-14 02:47:03');
+(3, 2, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-14 02:47:03', '2024-01-14 02:47:03'),
+(4, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-17 03:15:19', '2024-01-17 03:15:19'),
+(5, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-17 04:13:10', '2024-01-17 04:13:10');
 
 -- --------------------------------------------------------
 
@@ -326,7 +342,8 @@ CREATE TABLE `sales_organizations` (
 --
 
 INSERT INTO `sales_organizations` (`id`, `name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(1, 'hs', 'true', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:58:01', '2024-01-14 02:59:32');
+(1, 'hs', 'true', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:58:01', '2024-01-14 02:59:32'),
+(2, 'hs', '0', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-17 04:14:10', '2024-01-17 04:14:10');
 
 -- --------------------------------------------------------
 
@@ -361,7 +378,8 @@ CREATE TABLE `storages` (
 INSERT INTO `storages` (`id`, `owner_id`, `type_id`, `name`, `address`, `person_in_charge`, `email`, `telephone`, `mobile`, `status`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
 (1, NULL, NULL, 'Dina', 'London', 'kiki', 'k@mail', '1234', '098', 'true', NULL, 'jk', NULL, NULL, NULL, '2024-01-14 00:07:50', '2024-01-14 00:35:44'),
 (2, NULL, NULL, 'Dan', 'London', 'kiki', 'k@mail', '1234', '098', 'true', NULL, 'jk', NULL, NULL, NULL, '2024-01-14 00:17:44', '2024-01-14 00:17:44'),
-(3, NULL, NULL, 'Dan', 'London', 'kiki', 'k@mail', '1234', '098', 'true', NULL, 'jk', NULL, NULL, NULL, '2024-01-14 00:35:16', '2024-01-14 00:35:16');
+(3, NULL, NULL, 'Dan', 'London', 'kiki', 'k@mail', '1234', '098', 'true', NULL, 'jk', NULL, NULL, NULL, '2024-01-14 00:35:16', '2024-01-14 00:35:16'),
+(4, NULL, NULL, 'Dan', 'London', 'kiki', 'k@mail', '1234', '098', '1', 'Sa', 'jk', NULL, NULL, NULL, '2024-01-17 04:15:51', '2024-01-17 04:15:51');
 
 -- --------------------------------------------------------
 
@@ -387,7 +405,8 @@ CREATE TABLE `upazilas` (
 --
 
 INSERT INTO `upazilas` (`id`, `district_id`, `upazila_name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(2, NULL, 'Gonj', 'true', 'js', 'js', NULL, NULL, '2024-01-14 00:31:51', '2024-01-14 00:33:10');
+(2, NULL, 'Gonj', 'true', 'js', 'js', NULL, NULL, '2024-01-14 00:31:51', '2024-01-14 00:33:10'),
+(3, NULL, 'Sadar', '1', 'js', 'js', NULL, NULL, '2024-01-17 04:17:29', '2024-01-17 04:17:29');
 
 -- --------------------------------------------------------
 
@@ -513,37 +532,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `administrative_divisions`
 --
 ALTER TABLE `administrative_divisions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `banks`
 --
 ALTER TABLE `banks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `bank_accounts`
 --
 ALTER TABLE `bank_accounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `distribution_assigned_areas`
 --
 ALTER TABLE `distribution_assigned_areas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `distributors`
 --
 ALTER TABLE `distributors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `districts`
 --
 ALTER TABLE `districts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -567,19 +586,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `sales_organizations`
 --
 ALTER TABLE `sales_organizations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `storages`
 --
 ALTER TABLE `storages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `upazilas`
 --
 ALTER TABLE `upazilas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

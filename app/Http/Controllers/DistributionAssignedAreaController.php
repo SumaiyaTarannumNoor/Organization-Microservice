@@ -11,36 +11,76 @@ class DistributionAssignedAreaController extends Controller
     {
         $assignedAreas = DistributionAssignedArea::all();
 
-        return response()->json($assignedAreas, 200);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distribution Assigned Areas showing successfully.","data" => $assignedAreas]);
     }
 
     public function show($id)
     {
-        $assignedArea = DistributionAssignedArea::findOrFail($id);
+        $assignedAreas = DistributionAssignedArea::findOrFail($id);
 
-        return response()->json($assignedArea, 200);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distribution Assigned Area showing successfully.","data" => $assignedAreas]);
     }
 
     public function store(Request $request)
     {
-        $assignedArea = DistributionAssignedArea::create($request->all());
+        try {
+            $request->validate([
+                'distributor_id' => 'nullable|exists:distributors,id',
+                'area_id' => 'nullable|exists:areas,id',
+                'create_by' => 'nullable|string|max:255',
+                'modified_by' => 'nullable|string|max:255',
+                'modified_at' => 'nullable|string|max:255',
+                'ip' => 'nullable|ip',
+                'browser' => 'nullable|string|max:255',
+            ]);
 
-        return response()->json($assignedArea, 201);
+        $assignedAreas = DistributionAssignedArea::create($request->all());
+
+        return response()->json(["statusCode" => 201, "success" => true, "message"=>"Distribution Assigned Areas created successfully.","data" => $assignedAreas]);
+        }
+        catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
+
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            return response()->json(["message" => "Error creating distribution assigned area", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $assignedArea = DistributionAssignedArea::findOrFail($id);
-        $assignedArea->update($request->all());
+        try {
+            $request->validate([
+                'distributor_id' => 'nullable|exists:distributors,id',
+                'area_id' => 'nullable|exists:areas,id',
+                'create_by' => 'nullable|string|max:255',
+                'modified_by' => 'nullable|string|max:255',
+                'modified_at' => 'nullable|string|max:255',
+                'ip' => 'nullable|ip',
+                'browser' => 'nullable|string|max:255',
+            ]);
 
-        return response()->json($assignedArea, 200);
+        $assignedAreas = DistributionAssignedArea::findOrFail($id);
+        $assignedAreas->update($request->all());
+
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distribution Assigned Areas updated successfully.","data" => $assignedAreas]);
+        }
+        catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
+
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            return response()->json(["message" => "Error updating distribution assigned area", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
+        }
     }
 
     public function destroy($id)
     {
-        $assignedArea = DistributionAssignedArea::findOrFail($id);
-        $assignedArea->delete();
+        $assignedAreas = DistributionAssignedArea::findOrFail($id);
+        $assignedAreas->delete();
 
-        return response()->json(null, 204);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Distribution Assigned Areas deleted successfully.","data" => $assignedAreas]);
     }
 }
