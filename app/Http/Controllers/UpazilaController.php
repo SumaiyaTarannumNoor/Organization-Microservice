@@ -12,23 +12,22 @@ class UpazilaController extends Controller
     {
         $upazilas = Upazila::with(["district", "distributor"])->get();
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Upazilas showing successfully.","data" => $upazilas]);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Upazilas showing successfully.","data" => $upazilas],200);
     }
 
     public function show($id)
     {
         $upazilas = Upazila::findOrFail($id);
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Upazila showing successfully.","data" => $upazilas]);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Upazila showing successfully.","data" => $upazilas],200);
     }
 
     public function store(Request $request)
     {
-        try {
             $request->validate([
-                'district_id' => 'nullable|exists:district,id',
+                'district_id' => 'required|exists:district,id',
                 'upazila_name' => 'required|string|max:255',
-                'status' => 'nullable|boolean',
+                'status' => 'required|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -38,25 +37,17 @@ class UpazilaController extends Controller
 
         $upazilas = Upazila::create($request->all());
 
-        return response()->json(["statusCode" => 201, "success" => true, "message"=>"Upazila created successfully.","data" => $upazilas]);
-        }
-        catch (ValidationException $e) {
-            // Handle validation errors
-            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
+        return response()->json(["statusCode" => 201, "success" => true, "message"=>"Upazila created successfully.","data" => $upazilas],201);
 
-        } catch (\Exception $e) {
-            // Handle other exceptions
-            return response()->json(["message" => "Error creating upazila information", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
-        }
     }
 
     public function update(Request $request, $id)
     {
-        try {
+
             $request->validate([
-                'district_id' => 'nullable|exists:district,id',
+                'district_id' => 'required|exists:district,id',
                 'upazila_name' => 'required|string|max:255',
-                'status' => 'nullable|boolean',
+                'status' => 'required|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -66,16 +57,8 @@ class UpazilaController extends Controller
         $upazilas = Upazila::findOrFail($id);
         $upazilas->update($request->all());
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Upazila updated successfully.","data" => $upazilas]);
-        }
-        catch (ValidationException $e) {
-            // Handle validation errors
-            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Upazila updated successfully.","data" => $upazilas],200);
 
-        } catch (\Exception $e) {
-            // Handle other exceptions
-            return response()->json(["message" => "Error updating upazila information", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
-        }
     }
 
     public function destroy($id)
@@ -83,6 +66,6 @@ class UpazilaController extends Controller
         $upazilas = Upazila::findOrFail($id);
         $upazilas->delete();
 
-        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Upazila deleted successfully.","data" => $upazilas]);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Upazila deleted successfully.","data" => $upazilas],204);
     }
 }

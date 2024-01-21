@@ -15,16 +15,11 @@ class District extends Model
         'updated_by',
         'ip',
         'browser',
-    ];
-
-    public function division()
-    {
-        return $this->belongsTo(AdministrativeDivision::class);
-    }     
+    ];    
     
     public function upazilas()
     {
-        return $this->hasMany(District::class);
+        return $this->hasMany(Upazila::class);
     } 
 }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2024 at 11:22 AM
+-- Generation Time: Jan 20, 2024 at 10:58 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,13 +24,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administrative_divisions`
+-- Table structure for table `administritivedivision`
 --
 
-CREATE TABLE `administrative_divisions` (
+CREATE TABLE `administritivedivision` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `create_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `modified_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `modified_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -38,17 +38,6 @@ CREATE TABLE `administrative_divisions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `administrative_divisions`
---
-
-INSERT INTO `administrative_divisions` (`id`, `status`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(1, 'false', 'jdfdss', 'js', NULL, NULL, NULL, '2024-01-14 00:01:25', '2024-01-14 02:52:09'),
-(2, 'true', NULL, 'js', NULL, NULL, NULL, '2024-01-14 00:33:48', '2024-01-14 00:33:48'),
-(3, '1', 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:02:21', '2024-01-17 04:02:21'),
-(4, '1', 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:18:12', '2024-01-17 04:18:12'),
-(5, '1', 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:18:51', '2024-01-17 04:18:51');
 
 -- --------------------------------------------------------
 
@@ -72,17 +61,6 @@ CREATE TABLE `banks` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `banks`
---
-
-INSERT INTO `banks` (`id`, `bank_name`, `description`, `contact_person`, `contact_person_mobile`, `status`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(1, 'mtb', 'ndhusidh', 'kk', '098', 'true', NULL, 'hj', NULL, NULL, NULL, '2024-01-14 00:24:16', '2024-01-14 00:39:29'),
-(2, 'mtb', 'nice', 'kk', '098', 'true', NULL, 'hj', NULL, NULL, NULL, '2024-01-14 00:39:05', '2024-01-14 00:39:05'),
-(3, 'mtb', 'nice', 'kk', '098', 'true', NULL, 'hj', NULL, NULL, NULL, '2024-01-14 00:40:17', '2024-01-14 00:40:17'),
-(4, 'mtb', 'nice', 'kk', '098', '1', 'kj', 'hj', NULL, NULL, NULL, '2024-01-17 04:07:45', '2024-01-17 04:07:45'),
-(5, 'mtb', 'nice', 'kk', '098', '1', 'kj', 'hj', NULL, NULL, NULL, '2024-01-17 04:19:56', '2024-01-17 04:19:56');
-
 -- --------------------------------------------------------
 
 --
@@ -93,7 +71,7 @@ CREATE TABLE `bank_accounts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `bank_id` bigint(20) UNSIGNED DEFAULT NULL,
   `owner_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `account_owner_id` bigint(20) UNSIGNED DEFAULT NULL,
   `bank_account_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -108,14 +86,8 @@ CREATE TABLE `bank_accounts` (
 -- Dumping data for table `bank_accounts`
 --
 
-INSERT INTO `bank_accounts` (`id`, `bank_id`, `owner_type`, `owner_id`, `bank_account_number`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(3, 1, 'sales_organizations', 1, '9687968796', 'false', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:42:26', '2024-01-14 02:42:26'),
-(4, 1, 'distributors', 1, '55555555', 'false', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:42:26', '2024-01-14 02:42:26'),
-(5, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 03:26:45', '2024-01-17 03:26:45'),
-(6, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 03:27:10', '2024-01-17 03:27:10'),
-(7, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 03:30:47', '2024-01-17 03:30:47'),
-(8, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 04:05:17', '2024-01-17 04:05:17'),
-(9, NULL, 'bad', NULL, '793723', '0', 'hsbs', NULL, NULL, NULL, '2024-01-17 04:06:51', '2024-01-17 04:06:51');
+INSERT INTO `bank_accounts` (`id`, `bank_id`, `owner_type`, `account_owner_id`, `bank_account_number`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
+(6, NULL, 'distributor', NULL, '793723', '0', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-20 03:48:10', '2024-01-20 03:48:10');
 
 -- --------------------------------------------------------
 
@@ -135,17 +107,6 @@ CREATE TABLE `distribution_assigned_areas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `distribution_assigned_areas`
---
-
-INSERT INTO `distribution_assigned_areas` (`id`, `distributor_id`, `area_id`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'kkk', 'js', NULL, NULL, NULL, '2024-01-14 00:20:36', '2024-01-14 00:38:23'),
-(2, NULL, NULL, NULL, 'js', NULL, NULL, NULL, '2024-01-14 00:36:20', '2024-01-14 00:36:20'),
-(3, NULL, NULL, NULL, 'js', NULL, NULL, NULL, '2024-01-14 02:44:04', '2024-01-14 02:44:04'),
-(4, NULL, NULL, 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:08:22', '2024-01-17 04:08:22'),
-(5, NULL, NULL, 'js', 'js', NULL, NULL, NULL, '2024-01-17 04:20:40', '2024-01-17 04:20:40');
 
 -- --------------------------------------------------------
 
@@ -183,16 +144,6 @@ CREATE TABLE `distributors` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `distributors`
---
-
-INSERT INTO `distributors` (`id`, `distributor_name`, `storage_id`, `upazila_id`, `erp_id`, `proprietor_name`, `proprietor_dob`, `address`, `mobile_number`, `has_printer`, `has_pc`, `has_live_app`, `has_direct_sale`, `opening_date`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `union`, `ward`, `village`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(1, 'dob', NULL, NULL, NULL, 'hsh', '34', 'hbs', '473', 0, 1, 0, 1, '45', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 'false', 'hsks', 'kdjsd', NULL, NULL, '2024-01-14 03:09:47', '2024-01-14 03:12:14'),
-(2, 'dob', NULL, NULL, NULL, 'hsh', '34', 'hbs', '473', 0, 1, 0, 1, '45', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 'false', NULL, NULL, NULL, NULL, '2024-01-15 00:28:35', '2024-01-15 00:28:35'),
-(3, 'dob', NULL, NULL, NULL, 'hsh', '1989-08-23', 'hbs', '473', 0, 0, 0, 0, '1989-08-23', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', '0', 'hsks', 'kdjsd', NULL, NULL, '2024-01-17 04:10:30', '2024-01-17 04:10:30'),
-(4, 'dob', NULL, NULL, NULL, 'hsh', '1989-08-23', 'hbs', '473', 0, 0, 0, 0, '1989-08-23', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', '0', 'hsks', 'kdjsd', NULL, NULL, '2024-01-17 04:12:10', '2024-01-17 04:12:10');
-
 -- --------------------------------------------------------
 
 --
@@ -217,10 +168,10 @@ CREATE TABLE `districts` (
 --
 
 INSERT INTO `districts` (`id`, `division_id`, `district_name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(2, 1, 'bxxckja', '1', 'js', 'js', NULL, NULL, '2024-01-14 00:30:44', '2024-01-14 02:47:27'),
-(3, 2, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-14 02:47:03', '2024-01-14 02:47:03'),
-(4, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-17 03:15:19', '2024-01-17 03:15:19'),
-(5, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-17 04:13:10', '2024-01-17 04:13:10');
+(1, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-20 03:34:25', '2024-01-20 03:34:25'),
+(2, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-20 03:34:32', '2024-01-20 03:34:32'),
+(3, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-20 03:34:34', '2024-01-20 03:34:34'),
+(4, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-20 03:34:37', '2024-01-20 03:34:37');
 
 -- --------------------------------------------------------
 
@@ -255,38 +206,38 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2024_01_13_065322_create_storage_table', 2),
-(6, '2024_01_13_070646_create_administritivedivision_table', 3),
-(7, '2024_01_13_070951_create_salesorganization_table', 4),
-(8, '2024_01_13_071236_create_bank_table', 4),
-(9, '2024_01_13_072116_create_distributionassignedarea_table', 4),
-(10, '2024_01_13_082344_create_district_table', 5),
-(11, '2024_01_13_085314_create_upazila_table', 6),
-(12, '2024_01_13_085700_create_bankaccounts_table', 7),
-(13, '2024_01_13_090715_create_distributor_table', 8),
-(14, '2024_01_14_031539_update_upazila_table_name', 9),
-(15, '2024_01_14_033211_update_storage_table_name', 10),
 (16, '2024_01_14_033419_update_administritivedivision_table_name', 11),
-(17, '2024_01_14_033629_update_salesorganization_table_name', 12),
-(18, '2024_01_14_033835_update_bank_table_name', 13),
-(19, '2024_01_14_034053_update_distributionassignedarea_table_name', 14),
-(20, '2024_01_14_034742_update_districts_table_name', 15),
-(21, '2024_01_14_035311_update_distributor_table_name', 15),
-(22, '2024_01_14_043241_update_administritivedivision_table_name', 16),
-(23, '2024_01_14_044503_rename_administritivedivisions_table', 17),
-(24, '2024_01_14_044813_update_bankaccounts_table', 18),
-(25, '2024_01_14_045107_update_distributionassignedareas_table', 19),
-(26, '2024_01_14_045322_update_salesorganizations_table', 20),
 (27, '2024_01_14_064703_update_field_in_multiple_tables', 21),
-(28, '2024_01_14_082453_rename_old_column_to_new', 22),
-(29, '2024_01_14_083416_rename_old_column_to_new', 23),
-(30, '2024_01_14_083718_update_column_name', 24),
-(31, '2024_01_14_083900_update_column_name', 25),
-(32, '2024_01_14_084041_update_column_name', 26);
+(33, '2014_10_12_000000_create_users_table', 22),
+(34, '2014_10_12_100000_create_password_reset_tokens_table', 22),
+(35, '2019_08_19_000000_create_failed_jobs_table', 22),
+(36, '2019_12_14_000001_create_personal_access_tokens_table', 22),
+(37, '2024_01_13_065322_create_storage_table', 22),
+(38, '2024_01_13_070646_create_administritivedivision_table', 22),
+(39, '2024_01_13_070951_create_salesorganization_table', 22),
+(40, '2024_01_13_071236_create_bank_table', 22),
+(41, '2024_01_13_072116_create_distributionassignedarea_table', 22),
+(42, '2024_01_13_082344_create_district_table', 22),
+(43, '2024_01_13_085314_create_upazila_table', 22),
+(44, '2024_01_13_085700_create_bankaccounts_table', 22),
+(45, '2024_01_13_090715_create_distributor_table', 22),
+(46, '2024_01_14_031539_update_upazila_table_name', 22),
+(47, '2024_01_14_033211_update_storage_table_name', 22),
+(48, '2024_01_14_033629_update_salesorganization_table_name', 22),
+(49, '2024_01_14_033835_update_bank_table_name', 22),
+(50, '2024_01_14_034053_update_distributionassignedarea_table_name', 22),
+(51, '2024_01_14_034742_update_districts_table_name', 22),
+(52, '2024_01_14_035311_update_distributor_table_name', 22),
+(53, '2024_01_14_043241_update_administritivedivision_table_name', 22),
+(54, '2024_01_14_044503_rename_administritivedivisions_table', 22),
+(55, '2024_01_14_044813_update_bankaccounts_table', 22),
+(56, '2024_01_14_045107_update_distributionassignedareas_table', 22),
+(57, '2024_01_14_045322_update_salesorganizations_table', 22),
+(58, '2024_01_14_082453_rename_old_column_to_new', 22),
+(59, '2024_01_14_083416_rename_old_column_to_new', 22),
+(60, '2024_01_14_083718_update_column_name', 22),
+(61, '2024_01_14_083900_update_column_name', 22),
+(62, '2024_01_14_084041_update_column_name', 22);
 
 -- --------------------------------------------------------
 
@@ -337,14 +288,6 @@ CREATE TABLE `sales_organizations` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `sales_organizations`
---
-
-INSERT INTO `sales_organizations` (`id`, `name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(1, 'hs', 'true', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-14 02:58:01', '2024-01-14 02:59:32'),
-(2, 'hs', '0', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-17 04:14:10', '2024-01-17 04:14:10');
-
 -- --------------------------------------------------------
 
 --
@@ -371,16 +314,6 @@ CREATE TABLE `storages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `storages`
---
-
-INSERT INTO `storages` (`id`, `owner_id`, `type_id`, `name`, `address`, `person_in_charge`, `email`, `telephone`, `mobile`, `status`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'Dina', 'London', 'kiki', 'k@mail', '1234', '098', 'true', NULL, 'jk', NULL, NULL, NULL, '2024-01-14 00:07:50', '2024-01-14 00:35:44'),
-(2, NULL, NULL, 'Dan', 'London', 'kiki', 'k@mail', '1234', '098', 'true', NULL, 'jk', NULL, NULL, NULL, '2024-01-14 00:17:44', '2024-01-14 00:17:44'),
-(3, NULL, NULL, 'Dan', 'London', 'kiki', 'k@mail', '1234', '098', 'true', NULL, 'jk', NULL, NULL, NULL, '2024-01-14 00:35:16', '2024-01-14 00:35:16'),
-(4, NULL, NULL, 'Dan', 'London', 'kiki', 'k@mail', '1234', '098', '1', 'Sa', 'jk', NULL, NULL, NULL, '2024-01-17 04:15:51', '2024-01-17 04:15:51');
-
 -- --------------------------------------------------------
 
 --
@@ -399,14 +332,6 @@ CREATE TABLE `upazilas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `upazilas`
---
-
-INSERT INTO `upazilas` (`id`, `district_id`, `upazila_name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(2, NULL, 'Gonj', 'true', 'js', 'js', NULL, NULL, '2024-01-14 00:31:51', '2024-01-14 00:33:10'),
-(3, NULL, 'Sadar', '1', 'js', 'js', NULL, NULL, '2024-01-17 04:17:29', '2024-01-17 04:17:29');
 
 -- --------------------------------------------------------
 
@@ -430,9 +355,9 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexes for table `administrative_divisions`
+-- Indexes for table `administritivedivision`
 --
-ALTER TABLE `administrative_divisions`
+ALTER TABLE `administritivedivision`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -446,8 +371,8 @@ ALTER TABLE `banks`
 --
 ALTER TABLE `bank_accounts`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `bank_accounts_account_owner_id_foreign` (`owner_id`),
-  ADD KEY `bank_accounts_bank_id_foreign` (`bank_id`);
+  ADD KEY `bankaccounts_bank_id_foreign` (`bank_id`),
+  ADD KEY `bankaccounts_account_owner_id_foreign` (`account_owner_id`);
 
 --
 -- Indexes for table `distribution_assigned_areas`
@@ -460,16 +385,15 @@ ALTER TABLE `distribution_assigned_areas`
 --
 ALTER TABLE `distributors`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `distributors_erp_id_foreign` (`erp_id`),
-  ADD KEY `distributors_storage_id_foreign` (`storage_id`),
-  ADD KEY `distributors_upazila_id_foreign` (`upazila_id`);
+  ADD KEY `distributor_storage_id_foreign` (`storage_id`),
+  ADD KEY `distributor_upazila_id_foreign` (`upazila_id`),
+  ADD KEY `distributor_erp_id_foreign` (`erp_id`);
 
 --
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `districts_division_id_foreign` (`division_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -515,7 +439,7 @@ ALTER TABLE `storages`
 --
 ALTER TABLE `upazilas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `upazilas_district_id_foreign` (`district_id`);
+  ADD KEY `upazila_district_id_foreign` (`district_id`);
 
 --
 -- Indexes for table `users`
@@ -529,40 +453,40 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `administrative_divisions`
+-- AUTO_INCREMENT for table `administritivedivision`
 --
-ALTER TABLE `administrative_divisions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `administritivedivision`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `banks`
 --
 ALTER TABLE `banks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bank_accounts`
 --
 ALTER TABLE `bank_accounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `distribution_assigned_areas`
 --
 ALTER TABLE `distribution_assigned_areas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `distributors`
 --
 ALTER TABLE `distributors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `districts`
 --
 ALTER TABLE `districts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -574,7 +498,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -586,19 +510,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `sales_organizations`
 --
 ALTER TABLE `sales_organizations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `storages`
 --
 ALTER TABLE `storages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `upazilas`
 --
 ALTER TABLE `upazilas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -614,27 +538,28 @@ ALTER TABLE `users`
 -- Constraints for table `bank_accounts`
 --
 ALTER TABLE `bank_accounts`
-  ADD CONSTRAINT `bank_accounts_bank_id_foreign` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `bankaccounts_account_owner_id_foreign` FOREIGN KEY (`account_owner_id`) REFERENCES `sales_organizations` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bankaccounts_bank_id_foreign` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `distributors`
 --
 ALTER TABLE `distributors`
-  ADD CONSTRAINT `distributors_erp_id_foreign` FOREIGN KEY (`erp_id`) REFERENCES `distribution_assigned_areas` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `distributors_storage_id_foreign` FOREIGN KEY (`storage_id`) REFERENCES `storages` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `distributors_upazila_id_foreign` FOREIGN KEY (`upazila_id`) REFERENCES `upazilas` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `distributor_erp_id_foreign` FOREIGN KEY (`erp_id`) REFERENCES `distribution_assigned_areas` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `distributor_storage_id_foreign` FOREIGN KEY (`storage_id`) REFERENCES `storages` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `distributor_upazila_id_foreign` FOREIGN KEY (`upazila_id`) REFERENCES `upazilas` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `districts`
 --
 ALTER TABLE `districts`
-  ADD CONSTRAINT `districts_division_id_foreign` FOREIGN KEY (`division_id`) REFERENCES `administrative_divisions` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `district_division_id_foreign` FOREIGN KEY (`division_id`) REFERENCES `administritivedivision` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `upazilas`
 --
 ALTER TABLE `upazilas`
-  ADD CONSTRAINT `upazilas_district_id_foreign` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `upazila_district_id_foreign` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -12,7 +12,7 @@ class DistributorController extends Controller
     {
         $distributors = Distributor::with("bankAccounts")->get();
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distributors showing successfully.","data" => $distributors]);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distributors showing successfully.","data" => $distributors],200);
     }
 
     public function show($id)
@@ -23,17 +23,16 @@ class DistributorController extends Controller
 
         // $distributor->bankAccounts= $bankAccounts;
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distributor showing successfully.","data" => $distributors]);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distributor showing successfully.","data" => $distributors],200);
     }
 
     public function store(Request $request)
     {
-        try {
             $request->validate([
                 'distributor_name' => 'required|string|max:255',
-                'storage_id' => 'nullable|exists:storage,id',
-                'upazila_id' => 'nullable|exists:upazila,id',
-                'erp_id' => 'nullable|exists:distributionassignedarea,id',
+                'storage_id' => 'required|exists:storage,id',
+                'upazila_id' => 'required|exists:upazila,id',
+                'erp_id' => 'required|exists:distributionassignedarea,id',
                 'proprietor_name' => 'required|string|max:255',
                 'proprietor_dob' => 'required|date',
                 'address' => 'required|string|max:255',
@@ -49,7 +48,7 @@ class DistributorController extends Controller
                 'union' => 'required|string|max:255',
                 'ward' => 'required|string|max:255',
                 'village' => 'required|string|max:255',
-                'status' => 'nullable|boolean',
+                'status' => 'required|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -58,26 +57,16 @@ class DistributorController extends Controller
 
         $distributors = Distributor::create($request->all());
 
-        return response()->json(["statusCode" => 201, "success" => true, "message"=>"Distributors created successfully.","data" => $distributors]);
-        }
-        catch (ValidationException $e) {
-            // Handle validation errors
-            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
-
-        } catch (\Exception $e) {
-            // Handle other exceptions
-            return response()->json(["message" => "Error creating distributor information", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
-        }
+        return response()->json(["statusCode" => 201, "success" => true, "message"=>"Distributors created successfully.","data" => $distributors],201);
     }
 
     public function update(Request $request, $id)
     {
-        try {
             $request->validate([
                 'distributor_name' => 'required|string|max:255',
-                'storage_id' => 'nullable|exists:storage,id',
-                'upazila_id' => 'nullable|exists:upazila,id',
-                'erp_id' => 'nullable|exists:distributionassignedarea,id',
+                'storage_id' => 'required|exists:storage,id',
+                'upazila_id' => 'required|exists:upazila,id',
+                'erp_id' => 'required|exists:distributionassignedarea,id',
                 'proprietor_name' => 'required|string|max:255',
                 'proprietor_dob' => 'required|date',
                 'address' => 'required|string|max:255',
@@ -93,7 +82,7 @@ class DistributorController extends Controller
                 'union' => 'required|string|max:255',
                 'ward' => 'required|string|max:255',
                 'village' => 'required|string|max:255',
-                'status' => 'nullable|boolean',
+                'status' => 'required|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -103,16 +92,7 @@ class DistributorController extends Controller
         $distributors = Distributor::findOrFail($id);
         $distributors->update($request->all());
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distributor updated successfully.","data" => $distributors]);
-        }
-        catch (ValidationException $e) {
-            // Handle validation errors
-            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
-
-        } catch (\Exception $e) {
-            // Handle other exceptions
-            return response()->json(["message" => "Error updating distributor information", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
-        }
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distributor updated successfully.","data" => $distributors],200);
     }
 
     public function destroy($id)
@@ -120,7 +100,7 @@ class DistributorController extends Controller
         $distributors = Distributor::findOrFail($id);
         $distributors->delete();
 
-        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Distributor deleted successfully.","data" => $distributors]);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Distributor deleted successfully.","data" => $distributors],204);
     }
 
     public function getDistributorsByIds(Request $request)
@@ -131,6 +111,6 @@ class DistributorController extends Controller
 
         $distributors = Distributor::whereIn('id', $selectedIds)->get();
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distributors showing successfully.","data" => $distributors]);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distributors showing successfully.","data" => $distributors],200);
     }
 }

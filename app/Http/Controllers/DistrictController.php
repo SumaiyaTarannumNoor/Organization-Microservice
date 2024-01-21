@@ -9,26 +9,26 @@ class DistrictController extends Controller
 {
     public function index()
     {
-        $districts = District::with(["division", "upazilas"])->get();
+        $districts = District::with(["upazilas"])->get();
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Districts showing successfully.","data" => $districts]);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Districts showing successfully.","data" => $districts],200);
     }
 
     public function show($id)
     {
         $districts = District::findOrFail($id);
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"District showing successfully.","data" => $districts]);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"District showing successfully.","data" => $districts],200);
 
     }
 
     public function store(Request $request)
     {
-        try {
+    
             $request->validate([
-                'division_id' => 'nullable|exists:administritivedivision,id',
+                'division_id' => 'nullable',
                 'district_name' => 'required|string|max:255',
-                'status' => 'nullable|boolean',
+                'status' => 'required|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -37,25 +37,15 @@ class DistrictController extends Controller
 
         $districts = District::create($request->all());
 
-        return response()->json(["statusCode" => 201, "success" => true, "message"=>"District created successfully.","data" => $districts]);
-        }
-        catch (ValidationException $e) {
-            // Handle validation errors
-            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
-
-        } catch (\Exception $e) {
-            // Handle other exceptions
-            return response()->json(["message" => "Error creating district information", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
-        }
+        return response()->json(["statusCode" => 201, "success" => true, "message"=>"District created successfully.","data" => $districts],201);
     }
 
     public function update(Request $request, $id)
     {
-        try {
             $request->validate([
-                'division_id' => 'nullable|exists:administritivedivision,id',
+                'division_id' => 'required|exists:administritivedivision,id',
                 'district_name' => 'required|string|max:255',
-                'status' => 'nullable|boolean',
+                'status' => 'required|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -64,16 +54,8 @@ class DistrictController extends Controller
         $districts = District::findOrFail($id);
         $districts->update($request->all());
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"District updated successfully.","data" => $districts]);
-        }
-        catch (ValidationException $e) {
-            // Handle validation errors
-            return response()->json(["message" => "Validation failed", "errors" => $e->errors(), "statusCode" => 422, "success" => false]);
+        return response()->json(["statusCode" => 200, "success" => true, "message"=>"District updated successfully.","data" => $districts],200);
 
-        } catch (\Exception $e) {
-            // Handle other exceptions
-            return response()->json(["message" => "Error updating district information", "error" => $e->getMessage(), "statusCode" => 500, "success" => false]);
-        }
     }
 
     public function destroy($id)
@@ -81,7 +63,7 @@ class DistrictController extends Controller
         $districts = District::findOrFail($id);
         $districts->delete();
 
-        return response()->json(["statusCode" => 204, "success" => true, "message"=>"District deleted successfully.","data" => $districts]);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"District deleted successfully.","data" => $districts],204);
 
     }
 }
