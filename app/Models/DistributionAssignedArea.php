@@ -22,9 +22,4 @@ class DistributionAssignedArea extends Model
     {
         return $this->belongsTo(Distributor::class);
     }
-
-    public function area()
-    {
-        return $this->belongsTo(Area::class);
-    }
 }

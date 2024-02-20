@@ -29,4 +29,9 @@ class BankAccount extends Model
     {
         return $this->morphTo();
     }
+
+    public function getStatusAttribute($value)
+    {
+        return $value == 1 ? true : false;
+    }
 }

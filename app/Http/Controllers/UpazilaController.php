@@ -13,6 +13,10 @@ class UpazilaController extends Controller
         $upazilas = Upazila::with(["district", "distributor"])->get();
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Upazilas showing successfully.","data" => $upazilas],200);
+
+        $upazilas = $upazilas->map(function ($upazilas) {$upazilas['status'] = (bool) $upazilas['status'];
+            return $upazilas;
+        });
     }
 
     public function show($id)
@@ -25,9 +29,9 @@ class UpazilaController extends Controller
     public function store(Request $request)
     {
             $request->validate([
-                'district_id' => 'required|exists:district,id',
+                'district_id' => 'required|exists:districts,id',
                 'upazila_name' => 'required|string|max:255',
-                'status' => 'required|boolean',
+                'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -45,9 +49,9 @@ class UpazilaController extends Controller
     {
 
             $request->validate([
-                'district_id' => 'required|exists:district,id',
+                'district_id' => 'required|exists:districts,id',
                 'upazila_name' => 'required|string|max:255',
-                'status' => 'required|boolean',
+                'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -66,6 +70,18 @@ class UpazilaController extends Controller
         $upazilas = Upazila::findOrFail($id);
         $upazilas->delete();
 
-        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Upazila deleted successfully.","data" => $upazilas],204);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Upazila deleted successfully."]);
+    }
+
+    public function StatusChange($id)
+    {
+        $upazilas = Upazila::find($id);
+        $upazilas->update(['status' => !$upazilas->status]);
+
+        $true = true;
+
+        $false = false;
+
+        return $upazilas->refresh();
     }
 }

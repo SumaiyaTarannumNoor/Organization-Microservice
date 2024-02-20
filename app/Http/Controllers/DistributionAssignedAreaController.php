@@ -25,7 +25,7 @@ class DistributionAssignedAreaController extends Controller
     {
             $request->validate([
                 'distributor_id' => 'required|exists:distributors,id',
-                'area_id' => 'required|exists:areas,id',
+                'area_id' => 'required',
                 'create_by' => 'nullable|string|max:255',
                 'modified_by' => 'nullable|string|max:255',
                 'modified_at' => 'nullable|string|max:255',
@@ -42,7 +42,7 @@ class DistributionAssignedAreaController extends Controller
     {
             $request->validate([
                 'distributor_id' => 'required|exists:distributors,id',
-                'area_id' => 'required|exists:areas,id',
+                'area_id' => 'required',
                 'create_by' => 'nullable|string|max:255',
                 'modified_by' => 'nullable|string|max:255',
                 'modified_at' => 'nullable|string|max:255',
@@ -61,6 +61,6 @@ class DistributionAssignedAreaController extends Controller
         $assignedAreas = DistributionAssignedArea::findOrFail($id);
         $assignedAreas->delete();
 
-        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Distribution Assigned Areas deleted successfully.","data" => $assignedAreas],204);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Distribution Assigned Areas deleted successfully."]);
     }
 }

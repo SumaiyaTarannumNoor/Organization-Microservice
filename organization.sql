@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2024 at 10:58 AM
+-- Generation Time: Feb 03, 2024 at 10:11 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,24 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administritivedivision`
---
-
-CREATE TABLE `administritivedivision` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `create_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `modified_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `modified_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `browser` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `banks`
 --
 
@@ -51,7 +33,7 @@ CREATE TABLE `banks` (
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_person` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_person_mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `status` tinyint(1) DEFAULT 0,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `modified_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `modified_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -60,6 +42,16 @@ CREATE TABLE `banks` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `banks`
+--
+
+INSERT INTO `banks` (`id`, `bank_name`, `description`, `contact_person`, `contact_person_mobile`, `status`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
+(1, 'mtb', 'nice', 'kk', '098', 1, 'kj', 'hj', NULL, NULL, NULL, '2024-01-25 01:15:56', '2024-01-25 01:15:56'),
+(2, 'mtb', 'nice', 'kk', '098', 1, 'kj', 'hj', NULL, NULL, NULL, '2024-01-25 01:15:58', '2024-01-25 01:15:58'),
+(3, 'mtb', 'nice', 'kk', '098', 1, 'kj', 'hj', NULL, NULL, NULL, '2024-01-25 01:15:59', '2024-01-25 01:15:59'),
+(4, 'mtb', 'nice', 'kk', '098', 1, 'kj', 'hj', NULL, NULL, NULL, '2024-01-25 01:16:00', '2024-01-25 01:16:00');
 
 -- --------------------------------------------------------
 
@@ -70,10 +62,10 @@ CREATE TABLE `banks` (
 CREATE TABLE `bank_accounts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `bank_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `owner_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner_type` enum('sales_organizations','distributors') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'sales_organizations',
   `account_owner_id` bigint(20) UNSIGNED DEFAULT NULL,
   `bank_account_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `status` tinyint(1) DEFAULT 0,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -87,7 +79,10 @@ CREATE TABLE `bank_accounts` (
 --
 
 INSERT INTO `bank_accounts` (`id`, `bank_id`, `owner_type`, `account_owner_id`, `bank_account_number`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(6, NULL, 'distributor', NULL, '793723', '0', 'hsbs', 'ygusuw', NULL, NULL, '2024-01-20 03:48:10', '2024-01-20 03:48:10');
+(8, NULL, 'distributors', NULL, '793723', 0, 'hsbs', 'ygusuw', NULL, NULL, '2024-01-20 04:45:16', '2024-01-20 04:45:16'),
+(9, NULL, 'distributors', NULL, '793723', 0, 'hsbs', 'ygusuw', NULL, NULL, '2024-01-20 04:45:19', '2024-01-20 04:45:19'),
+(10, 4, 'distributors', NULL, '793723', 0, 'hsbs', 'ygusuw', NULL, NULL, '2024-01-25 04:28:56', '2024-01-25 04:28:56'),
+(11, 4, 'distributors', NULL, '793723', 0, 'hsbs', 'ygusuw', NULL, NULL, '2024-01-28 01:42:38', '2024-01-28 01:42:38');
 
 -- --------------------------------------------------------
 
@@ -117,9 +112,9 @@ CREATE TABLE `distribution_assigned_areas` (
 CREATE TABLE `distributors` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `distributor_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `storage_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `upazila_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `erp_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `storage_id` bigint(20) UNSIGNED NOT NULL,
+  `upazila_id` bigint(20) UNSIGNED NOT NULL,
+  `erp_id` bigint(20) UNSIGNED NOT NULL,
   `proprietor_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `proprietor_dob` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -135,7 +130,7 @@ CREATE TABLE `distributors` (
   `union` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ward` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `village` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `status` tinyint(1) DEFAULT 0,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -143,6 +138,17 @@ CREATE TABLE `distributors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `distributors`
+--
+
+INSERT INTO `distributors` (`id`, `distributor_name`, `storage_id`, `upazila_id`, `erp_id`, `proprietor_name`, `proprietor_dob`, `address`, `mobile_number`, `has_printer`, `has_pc`, `has_live_app`, `has_direct_sale`, `opening_date`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `union`, `ward`, `village`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
+(3, 'Karim', 3, 2, 2, 'Rahim', '1980-10-2', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '15-3-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 0, NULL, NULL, NULL, NULL, '2024-01-28 00:35:51', '2024-01-28 00:35:51'),
+(4, 'Karim', 3, 2, 2, 'Rahim', '1980-10-2', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '15-3-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 0, NULL, NULL, NULL, NULL, '2024-01-28 00:35:58', '2024-01-28 00:35:58'),
+(5, 'Karim', 3, 2, 2, 'Rahim', '1980-10-2', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '15-3-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 0, NULL, NULL, NULL, NULL, '2024-01-28 00:36:01', '2024-01-28 00:36:01'),
+(6, 'Karim', 3, 2, 2, 'Rahim', '1980-10-2', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '15-3-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 0, NULL, NULL, NULL, NULL, '2024-01-28 00:42:47', '2024-01-28 00:42:47'),
+(7, 'Karim', 3, 2, 2, 'Rahim', '1980-10-2', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '15-3-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 0, NULL, NULL, NULL, NULL, '2024-01-28 00:42:48', '2024-01-28 00:42:48');
 
 -- --------------------------------------------------------
 
@@ -152,9 +158,9 @@ CREATE TABLE `distributors` (
 
 CREATE TABLE `districts` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `division_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `division_id` bigint(20) UNSIGNED NOT NULL,
   `district_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `status` tinyint(1) DEFAULT 0,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -168,10 +174,11 @@ CREATE TABLE `districts` (
 --
 
 INSERT INTO `districts` (`id`, `division_id`, `district_name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-20 03:34:25', '2024-01-20 03:34:25'),
-(2, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-20 03:34:32', '2024-01-20 03:34:32'),
-(3, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-20 03:34:34', '2024-01-20 03:34:34'),
-(4, NULL, 'Dhaka', '1', 'js', 'js', NULL, NULL, '2024-01-20 03:34:37', '2024-01-20 03:34:37');
+(1, 2, 'Dhaka', 1, NULL, NULL, NULL, NULL, '2024-01-25 00:58:33', '2024-01-25 00:58:33'),
+(2, 2, 'Barisal', 1, NULL, NULL, NULL, NULL, '2024-01-25 04:21:13', '2024-01-27 21:19:23'),
+(3, 2, 'Dhaka', 1, NULL, NULL, NULL, NULL, '2024-01-27 21:15:44', '2024-01-27 21:15:44'),
+(4, 2, 'Dhaka', 1, NULL, NULL, NULL, NULL, '2024-01-27 21:18:10', '2024-01-27 21:18:10'),
+(6, 2, 'Dhaka', 1, NULL, NULL, NULL, NULL, '2024-01-28 03:07:21', '2024-01-28 03:07:21');
 
 -- --------------------------------------------------------
 
@@ -237,7 +244,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (59, '2024_01_14_083416_rename_old_column_to_new', 22),
 (60, '2024_01_14_083718_update_column_name', 22),
 (61, '2024_01_14_083900_update_column_name', 22),
-(62, '2024_01_14_084041_update_column_name', 22);
+(62, '2024_01_14_084041_update_column_name', 22),
+(63, '2024_01_21_105732_change_column_data_type_in_table', 23),
+(64, '2024_01_25_065750_create_districts_table', 24);
 
 -- --------------------------------------------------------
 
@@ -279,7 +288,7 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `sales_organizations` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `status` tinyint(1) DEFAULT 0,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -287,6 +296,20 @@ CREATE TABLE `sales_organizations` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sales_organizations`
+--
+
+INSERT INTO `sales_organizations` (`id`, `name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
+(1, 'jarina co and co', 0, NULL, NULL, NULL, NULL, '2024-01-28 05:03:50', '2024-01-28 21:57:03'),
+(2, 'rahima', 0, NULL, NULL, NULL, NULL, '2024-01-28 05:04:57', '2024-01-28 05:04:57'),
+(3, 'rahima and co.', 0, NULL, NULL, NULL, NULL, '2024-01-28 05:05:07', '2024-01-28 05:05:07'),
+(4, 'karima and co.', 0, NULL, NULL, NULL, NULL, '2024-01-28 05:05:15', '2024-01-28 05:05:15'),
+(5, 'karima and co.', 0, NULL, NULL, NULL, NULL, '2024-01-28 05:09:17', '2024-01-28 05:09:17'),
+(6, 'karima and co.', 0, NULL, NULL, NULL, NULL, '2024-01-28 05:09:19', '2024-01-28 05:09:19'),
+(8, 'karima and co.', 0, NULL, NULL, NULL, NULL, '2024-01-28 23:33:31', '2024-01-28 23:33:31'),
+(9, 'karima and co.', 0, NULL, NULL, NULL, NULL, '2024-01-28 23:33:56', '2024-01-28 23:33:56');
 
 -- --------------------------------------------------------
 
@@ -304,7 +327,7 @@ CREATE TABLE `storages` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `telephone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `status` tinyint(1) DEFAULT 0,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `modified_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `modified_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -313,6 +336,15 @@ CREATE TABLE `storages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `storages`
+--
+
+INSERT INTO `storages` (`id`, `owner_id`, `type_id`, `name`, `address`, `person_in_charge`, `email`, `telephone`, `mobile`, `status`, `created_by`, `modified_by`, `modified_at`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
+(1, 34, 4, 'gonj storage', 'London', 'kiki', 'k@mail', '1234', '098', 1, NULL, NULL, NULL, NULL, NULL, '2024-01-27 21:37:53', '2024-01-27 21:38:40'),
+(2, 34, 4, 'sadar storage', 'London', 'kiki', 'k@mail', '1234', '098', 1, NULL, NULL, NULL, NULL, NULL, '2024-01-27 21:37:56', '2024-01-27 21:37:56'),
+(3, 34, 4, 'sadar storage', 'London', 'kiki', 'k@mail', '1234', '098', 1, NULL, NULL, NULL, NULL, NULL, '2024-01-27 21:37:57', '2024-01-27 21:37:57');
 
 -- --------------------------------------------------------
 
@@ -324,7 +356,7 @@ CREATE TABLE `upazilas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `district_id` bigint(20) UNSIGNED DEFAULT NULL,
   `upazila_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `status` tinyint(1) DEFAULT 0,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -332,6 +364,14 @@ CREATE TABLE `upazilas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `upazilas`
+--
+
+INSERT INTO `upazilas` (`id`, `district_id`, `upazila_name`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Sadar', 1, 'js', 'js', NULL, NULL, '2024-01-27 21:20:54', '2024-01-27 21:20:54'),
+(2, 2, 'Bhatikhana', 1, 'js', 'js', NULL, NULL, '2024-01-27 21:21:13', '2024-01-27 21:22:40');
 
 -- --------------------------------------------------------
 
@@ -353,12 +393,6 @@ CREATE TABLE `users` (
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `administritivedivision`
---
-ALTER TABLE `administritivedivision`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `banks`
@@ -386,8 +420,7 @@ ALTER TABLE `distribution_assigned_areas`
 ALTER TABLE `distributors`
   ADD PRIMARY KEY (`id`),
   ADD KEY `distributor_storage_id_foreign` (`storage_id`),
-  ADD KEY `distributor_upazila_id_foreign` (`upazila_id`),
-  ADD KEY `distributor_erp_id_foreign` (`erp_id`);
+  ADD KEY `distributor_upazila_id_foreign` (`upazila_id`);
 
 --
 -- Indexes for table `districts`
@@ -453,22 +486,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `administritivedivision`
---
-ALTER TABLE `administritivedivision`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `banks`
 --
 ALTER TABLE `banks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `bank_accounts`
 --
 ALTER TABLE `bank_accounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `distribution_assigned_areas`
@@ -480,13 +507,13 @@ ALTER TABLE `distribution_assigned_areas`
 -- AUTO_INCREMENT for table `distributors`
 --
 ALTER TABLE `distributors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `districts`
 --
 ALTER TABLE `districts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -498,7 +525,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -510,19 +537,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `sales_organizations`
 --
 ALTER TABLE `sales_organizations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `storages`
 --
 ALTER TABLE `storages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `upazilas`
 --
 ALTER TABLE `upazilas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -548,12 +575,6 @@ ALTER TABLE `distributors`
   ADD CONSTRAINT `distributor_erp_id_foreign` FOREIGN KEY (`erp_id`) REFERENCES `distribution_assigned_areas` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `distributor_storage_id_foreign` FOREIGN KEY (`storage_id`) REFERENCES `storages` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `distributor_upazila_id_foreign` FOREIGN KEY (`upazila_id`) REFERENCES `upazilas` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `districts`
---
-ALTER TABLE `districts`
-  ADD CONSTRAINT `district_division_id_foreign` FOREIGN KEY (`division_id`) REFERENCES `administritivedivision` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `upazilas`

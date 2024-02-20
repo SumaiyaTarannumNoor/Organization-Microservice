@@ -32,5 +32,10 @@ class Storage extends Model
     public function type()
     {
         return $this->belongsTo(StorageType::class, 'type_id');
-    }                      
+    }     
+    
+    public function getStatusAttribute($value)
+    {
+        return $value == 1 ? true : false;
+    }
 }

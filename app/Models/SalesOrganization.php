@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class SalesOrganization extends Model
 {
     protected $fillable = [
-        'name',
+        'sales_organization_name',
         'status',
         'created_by',
         'updated_by',
@@ -20,6 +20,11 @@ class SalesOrganization extends Model
     public function bankAccounts()
     {
         return $this->morphMany(BankAccount::class, 'owner');
+    }
+
+    public function getStatusAttribute($value)
+    {
+        return $value == 1 ? true : false;
     }
                 
 }

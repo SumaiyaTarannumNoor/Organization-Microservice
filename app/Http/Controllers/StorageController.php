@@ -13,6 +13,10 @@ class StorageController extends Controller
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Storages showing successfully.","data" => $storages],200);
 
+        $storages = $storages->map(function ($storages) {$storages['status'] = (bool) $storages['status'];
+            return $salesOrganizations;
+        });
+
     }
 
     public function show($id)
@@ -26,15 +30,15 @@ class StorageController extends Controller
     {
     
             $request->validate([
-                'owner_id' => 'required|exists:owners,id',
-                'type_id' => 'required|exists:types,id',
+                'owner_id' => 'required',
+                'type_id' => 'required',
                 'name' => 'required|string|max:255',
                 'address' => 'required|string|max:255',
                 'person_in_charge' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
                 'telephone' => 'required|string|max:20',
                 'mobile' => 'required|string|max:20',
-                'status' => 'required|boolean',
+                'status' => 'nullable|boolean',
                 'create_by' => 'nullable|string|max:255',
                 'modified_by' => 'nullable|string|max:255',
                 'modified_at' => 'nullable|date',
@@ -51,15 +55,15 @@ class StorageController extends Controller
     {
         
             $request->validate([
-                'owner_id' => 'required|exists:owners,id',
-                'type_id' => 'required|exists:types,id',
+                'owner_id' => 'required',
+                'type_id' => 'required',
                 'name' => 'required|string|max:255',
                 'address' => 'required|string|max:255',
                 'person_in_charge' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
                 'telephone' => 'required|string|max:20',
                 'mobile' => 'required|string|max:20',
-                'status' => 'required|boolean',
+                'status' => 'nullable|boolean',
                 'create_by' => 'nullable|string|max:255',
                 'modified_by' => 'nullable|string|max:255',
                 'modified_at' => 'nullable|date',
@@ -78,6 +82,18 @@ class StorageController extends Controller
         $storages = Storage::findOrFail($id);
         $storages->delete();
 
-        return response()->json(["statusCode" => 200, "success" => true, "message"=>"Storage deleted successfully.","data" => $storages],200);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Storage deleted successfully."]);
+    }
+
+    public function StatusChange($id)
+    {
+        $storages = Brand::find($id);
+        $storages->update(['status' => !$storages->status]);
+
+        $true = true;
+
+        $false = false;
+
+        return $storages->refresh();
     }
 }

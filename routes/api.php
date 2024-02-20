@@ -2,9 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdministrativeDivisionController;
 use App\Http\Controllers\UpazilaController;
 use App\Http\Controllers\StorageController;
-use App\Http\Controllers\AdministrativeDivisionController;
 use App\Http\Controllers\SalesOrganizationController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\DistributionAssignedAreaController;
@@ -30,13 +30,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('upazilas', UpazilaController::class);
 Route::resource('storages', StorageController::class);
-Route::resource('administrativedivisions', AdministrativeDivisionController::class);
 Route::resource('salesorganizations', SalesOrganizationController::class);
 Route::resource('banks', BankController::class);
 Route::resource('distributionassignedareas', DistributionAssignedAreaController::class);
 Route::resource('districts', DistrictController::class);
 Route::resource('bankaccounts', BankAccountsController::class);
 Route::resource('distributors', DistributorController::class);
+Route::resource('administrativedivisions', AdministrativeDivisionController::class );
 
 Route::post('/bulk-distributors', [DistributorController::class, 'getDistributorsByIds']);
 

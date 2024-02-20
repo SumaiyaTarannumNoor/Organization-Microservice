@@ -9,9 +9,13 @@ class DistrictController extends Controller
 {
     public function index()
     {
-        $districts = District::with(["upazilas"])->get();
+        $districts = District::with(["upazilas", "division"])->get();
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Districts showing successfully.","data" => $districts],200);
+
+        $districts = $districts->map(function ($districts) {$districts['status'] = (bool) $districts['status'];
+            return $districts;
+        });
     }
 
     public function show($id)
@@ -26,9 +30,9 @@ class DistrictController extends Controller
     {
     
             $request->validate([
-                'division_id' => 'nullable',
+                'division_id' => 'required',
                 'district_name' => 'required|string|max:255',
-                'status' => 'required|boolean',
+                'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -43,9 +47,9 @@ class DistrictController extends Controller
     public function update(Request $request, $id)
     {
             $request->validate([
-                'division_id' => 'required|exists:administritivedivision,id',
+                'division_id' => 'required',
                 'district_name' => 'required|string|max:255',
-                'status' => 'required|boolean',
+                'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -63,7 +67,19 @@ class DistrictController extends Controller
         $districts = District::findOrFail($id);
         $districts->delete();
 
-        return response()->json(["statusCode" => 204, "success" => true, "message"=>"District deleted successfully.","data" => $districts],204);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"District deleted successfully."]);
 
+    }
+
+    public function StatusChange($id)
+    {
+        $districts = District::find($id);
+        $districts->update(['status' => !$districts->status]);
+
+        $true = true;
+
+        $false = false;
+
+        return $districts->refresh();
     }
 }

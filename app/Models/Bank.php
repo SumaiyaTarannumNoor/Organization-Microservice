@@ -15,10 +15,15 @@ class Bank extends Model
         'status',
         'created_by',
         'modified_by',
-        'modified_at',
         'ip',
         'browser',
     ];
+
+    public function getStatusAttribute($value)
+    {
+        return $value == 1 ? true : false;
+    }
+
     public function bank_accounts()
     {
         return $this->hasMany(BankAccount::class);

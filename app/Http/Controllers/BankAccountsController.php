@@ -9,9 +9,20 @@ class BankAccountsController extends Controller
 {
     public function index()
     {
-        $bankAccount = BankAccount::with(["bank", "owner"])->get();
+        $bankAccount = BankAccount::all();
+
+        
+        $bankAccount = BankAccount::where('owner_type', $ownerType)
+        ->where('account_owner_id', $id)
+        ->with(["bank", "owner"])
+        ->get();
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Bank Accounts showing successfully.","data" => $bankAccount],200);
+
+        $bankAccount = $bankAccount->map(function ($bankAccount) {$bankAccount['status'] = (bool) $bankAccount['status'];
+            return $bankAccount;
+        });
+        
     }
 
     public function show($id)
@@ -19,16 +30,17 @@ class BankAccountsController extends Controller
         $bankAccount = BankAccount::findOrFail($id);
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Bank Account showing successfully.","data" => $bankAccount],200);
+
     }
 
     public function store(Request $request)
     {
             $request->validate([
-                'bank_id' => 'required|exists:bank,id',
-                'owner_type' => 'required|string|max:255',
-                'account_owner_id' => 'required|exists:salesorganization,id',
+                'bank_id' => 'required|exists:banks,id',
+                'owner_type' => 'required|in: distributors, sales_organizations',
+                'account_owner_id' => 'required',
                 'bank_account_number' => 'required|string|max:255',
-                'status' => 'required|boolean',
+                'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -42,11 +54,11 @@ class BankAccountsController extends Controller
     public function update(Request $request, $id)
     {
             $request->validate([
-                'bank_id' => 'required|exists:bank,id',
-                'owner_type' => 'required|string|max:255',
-                'account_owner_id' => 'required|exists:salesorganization,id',
+                'bank_id' => 'required|exists:banks,id',
+                'owner_type' => 'required|in:distributors,sales_organizations',
+                'account_owner_id' => 'required',
                 'bank_account_number' => 'required|string|max:255',
-                'status' => 'required|boolean',
+                'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -63,6 +75,18 @@ class BankAccountsController extends Controller
         $bankAccount = BankAccount::findOrFail($id);
         $bankAccount->delete();
 
-        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Bank Account deleted successfully.","data" => $bankAccount],204);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Bank Account deleted successfully."]);
+    }
+
+    public function StatusChange($id)
+    {
+        $bankAccount = BankAccount::find($id);
+        $bankAccount->update(['status' => !$bankAccount->status]);
+
+        $true = true;
+
+        $false = false;
+
+        return $bankAccount->refresh();
     }
 }

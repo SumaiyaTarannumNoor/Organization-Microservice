@@ -21,5 +21,14 @@ class District extends Model
     {
         return $this->hasMany(Upazila::class);
     } 
+    public function division()
+    {
+        return $this->belongsTo(AdministrativeDivision::class);
+    } 
+
+    public function getStatusAttribute($value)
+    {
+        return $value == 1 ? true : false;
+    }
 }
 

@@ -9,18 +9,22 @@ use Illuminate\Support\Facades\DB;
 class SalesOrganizationController extends Controller
 {
     public function index()
-    {
-
-        
-        $salesOrganizations = SalesOrganization::with("bankAccounts")->get();
+    {        
+        $salesOrganizations = SalesOrganization::all();
 
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Saless Organizations showing successfully.","data" => $salesOrganizations],200);
+
+        $salesOrganizations = $salesOrganizations->map(function ($salesOrganizations) {$salesOrganizations['status'] = (bool) $salesOrganizations['status'];
+            return $salesOrganizations;
+        });
     }
 
     public function show($id)
     {
         $salesOrganizations = SalesOrganization::findOrFail($id);
+
+        // $bankAccounts= $salesOrganizations->bankAccounts;
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Saless Organization showing successfully.","data" => $salesOrganizations],200);
     }
@@ -29,8 +33,8 @@ class SalesOrganizationController extends Controller
     {
         
             $request->validate([
-                'name' => 'required|string|max:255',
-                'status' => 'required|boolean',
+                'sales_organization_name' => 'required|string|max:255',
+                'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -46,8 +50,8 @@ class SalesOrganizationController extends Controller
     {
 
             $request->validate([
-                'name' => 'required|string|max:255',
-                'status' => 'required|boolean',
+                'sales_organization_name' => 'required|string|max:255',
+                'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
                 'ip' => 'nullable|ip',
@@ -67,6 +71,18 @@ class SalesOrganizationController extends Controller
         $salesOrganizations = SalesOrganization::findOrFail($id);
         $salesOrganizations->delete();
 
-        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Saless Organization deleted successfully.","data" => $salesOrganizations],204);
+        return response()->json(["statusCode" => 204, "success" => true, "message"=>"Saless Organization deleted successfully."]);
+    }
+
+    public function StatusChange($id)
+    {
+        $salesOrganizations = SalesOrganization::find($id);
+        $salesOrganizations->update(['status' => !$salesOrganizations->status]);
+
+        $true = true;
+
+        $false = false;
+
+        return $salesOrganizations->refresh();
     }
 }
