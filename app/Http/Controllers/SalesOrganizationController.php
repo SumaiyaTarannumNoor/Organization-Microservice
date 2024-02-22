@@ -10,7 +10,7 @@ class SalesOrganizationController extends Controller
 {
     public function index()
     {        
-        $salesOrganizations = SalesOrganization::all();
+        $salesOrganizations = SalesOrganization::with("bankAccounts")->get();
 
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Saless Organizations showing successfully.","data" => $salesOrganizations],200);
@@ -23,8 +23,9 @@ class SalesOrganizationController extends Controller
     public function show($id)
     {
         $salesOrganizations = SalesOrganization::findOrFail($id);
+    
 
-        // $bankAccounts= $salesOrganizations->bankAccounts;
+        $bankAccounts= $salesOrganizations->bankAccounts;
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Saless Organization showing successfully.","data" => $salesOrganizations],200);
     }
@@ -33,7 +34,7 @@ class SalesOrganizationController extends Controller
     {
         
             $request->validate([
-                'sales_organization_name' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
                 'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',
@@ -50,7 +51,7 @@ class SalesOrganizationController extends Controller
     {
 
             $request->validate([
-                'sales_organization_name' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
                 'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
                 'updated_by' => 'nullable|string|max:255',

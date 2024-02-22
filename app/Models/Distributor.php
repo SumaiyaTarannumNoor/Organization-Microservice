@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Distributor extends Model
 {
     protected $fillable = [
-        'distributor_name',
+        'name',
         'storage_id',
         'upazila_id',
         'erp_id',
@@ -44,9 +44,9 @@ class Distributor extends Model
         return $this->belongsTo(Upazila::class);
     }
 
-    public function erp()
+    public function daa()
     {
-        return $this->belongsTo(DistributionAssignedArea::class);
+        return $this->hasMany(DistributionAssignedArea::class);
     }
     
     public function bankAccounts()
@@ -54,5 +54,10 @@ class Distributor extends Model
         return $this->morphMany(BankAccount::class, 'owner');
     }
     
+    public function getStatusAttribute($value)
+    {
+        return $value == 1 ? true : false;
+    }
+
   
 }

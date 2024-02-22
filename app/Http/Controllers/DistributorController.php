@@ -24,8 +24,8 @@ class DistributorController extends Controller
     public function show($id)
     {
         $distributors = Distributor::findOrFail($id);
-
-
+        $distributors = Distributor::with(["bankAccounts", "storage", "upazila", "daa"])->get();
+      
         //$bankAccounts= $distributors->bankAccounts;
 
         // $distributor->bankAccounts= $bankAccounts;
@@ -36,7 +36,7 @@ class DistributorController extends Controller
     public function store(Request $request)
     {
             $request->validate([
-                'distributor_name' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
                 'storage_id' => 'required|exists:storages,id',
                 'upazila_id' => 'required|exists:upazilas,id',
                 'erp_id' => 'required',
@@ -71,7 +71,7 @@ class DistributorController extends Controller
     public function update(Request $request, $id)
     {
             $request->validate([
-                'distributor_name' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
                 'storage_id' => 'required|exists:storages,id',
                 'upazila_id' => 'required|exists:upazilas,id',
                 'erp_id' => 'required',

@@ -41,3 +41,14 @@ Route::resource('administrativedivisions', AdministrativeDivisionController::cla
 Route::post('/bulk-distributors', [DistributorController::class, 'getDistributorsByIds']);
 
 
+//Status Change 
+Route::get('/administrativedivisionStatusChange/{id}', [AdministrativeDivisionController::class, 'StatusChange']);
+Route::get('/districtStatusChange/{id}', [DistrictController::class, 'StatusChange']);
+Route::get('/upazilaStatusChange/{id}', [UpazilaController::class, 'StatusChange']);
+Route::get('/storageStatusChange/{id}', [StorageController::class, 'StatusChange']);
+Route::get('/distributorStatusChange/{id}', [DistributorController::class, 'StatusChange']);
+Route::get('/salesorganizationStatusChange/{id}', [SalesOrganizationController::class, 'StatusChange']);
+Route::get('/bankStatusChange/{id}', [BankController::class, 'StatusChange']);
+Route::get('/bankaccountStatusChange/{id}', [BankAccountsController::class, 'StatusChange']);
+
+

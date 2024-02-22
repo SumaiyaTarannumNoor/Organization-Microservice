@@ -12,10 +12,10 @@ class BankAccountsController extends Controller
         $bankAccount = BankAccount::all();
 
         
-        $bankAccount = BankAccount::where('owner_type', $ownerType)
-        ->where('account_owner_id', $id)
-        ->with(["bank", "owner"])
-        ->get();
+        // $bankAccount = BankAccount::where('owner_type', $ownerType)
+        // ->where('owner_id', $id)
+        // ->with(["bank", "owner"])
+        // ->get();
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Bank Accounts showing successfully.","data" => $bankAccount],200);
 
@@ -37,8 +37,8 @@ class BankAccountsController extends Controller
     {
             $request->validate([
                 'bank_id' => 'required|exists:banks,id',
-                'owner_type' => 'required|in: distributors, sales_organizations',
-                'account_owner_id' => 'required',
+                'owner_id' => 'required',
+                'owner_type' => 'required|in:distributors,sales_organizations', // Corrected to match enum values
                 'bank_account_number' => 'required|string|max:255',
                 'status' => 'nullable|boolean',
                 'created_by' => 'nullable|string|max:255',
@@ -53,17 +53,17 @@ class BankAccountsController extends Controller
 
     public function update(Request $request, $id)
     {
-            $request->validate([
-                'bank_id' => 'required|exists:banks,id',
-                'owner_type' => 'required|in:distributors,sales_organizations',
-                'account_owner_id' => 'required',
-                'bank_account_number' => 'required|string|max:255',
-                'status' => 'nullable|boolean',
-                'created_by' => 'nullable|string|max:255',
-                'updated_by' => 'nullable|string|max:255',
-                'ip' => 'nullable|ip',
-                'browser' => 'nullable|string|max:255',
-            ]);
+        $request->validate([
+            'bank_id' => 'required|exists:banks,id',
+            'owner_id' => 'required',
+            'owner_type' => 'required|in:distributors,sales_organizations', // Corrected to match enum values
+            'bank_account_number' => 'required|string|max:255',
+            'status' => 'nullable|boolean',
+            'created_by' => 'nullable|string|max:255',
+            'updated_by' => 'nullable|string|max:255',
+            'ip' => 'nullable|ip',
+            'browser' => 'nullable|string|max:255',
+        ]);
         $bankAccount = BankAccount::findOrFail($id);
         $bankAccount->update($request->all());
 

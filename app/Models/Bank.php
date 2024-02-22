@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Bank extends Model
 {
     protected $fillable = [
-        'bank_name',
+        'name',
         'description',
         'contact_person',
         'contact_person_mobile',

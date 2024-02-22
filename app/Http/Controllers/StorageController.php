@@ -87,7 +87,7 @@ class StorageController extends Controller
 
     public function StatusChange($id)
     {
-        $storages = Brand::find($id);
+        $storages = Storage::find($id);
         $storages->update(['status' => !$storages->status]);
 
         $true = true;

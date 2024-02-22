@@ -9,7 +9,7 @@ class DistributionAssignedAreaController extends Controller
 {
     public function index()
     {
-        $assignedAreas = DistributionAssignedArea::all();
+        $assignedAreas = DistributionAssignedArea::with("distributor");
 
         return response()->json(["statusCode" => 200, "success" => true, "message"=>"Distribution Assigned Areas showing successfully.","data" => $assignedAreas],200);
     }
