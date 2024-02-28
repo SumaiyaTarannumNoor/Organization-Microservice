@@ -30,7 +30,7 @@ class BankController extends Controller
     {
     
             $request->validate([
-                'bank_name' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'contact_person' => 'required|string|max:255',
                 'contact_person_mobile' => 'required|string|max:20',
@@ -49,7 +49,7 @@ class BankController extends Controller
     public function update(Request $request, $id)
     {
             $request->validate([
-                'bank_name' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'contact_person' => 'required|string|max:255',
                 'contact_person_mobile' => 'required|string|max:20',
