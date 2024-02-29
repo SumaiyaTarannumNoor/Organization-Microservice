@@ -10,7 +10,11 @@ class Distributor extends Model
     protected $fillable = [
         'name',
         'storage_id',
-        'upazila_id',
+        // 'upazila_id',
+        'distributor_type',
+        'division_id',
+        'region_id',
+        'area_id',
         'erp_id',
         'proprietor_name',
         'proprietor_dob',
