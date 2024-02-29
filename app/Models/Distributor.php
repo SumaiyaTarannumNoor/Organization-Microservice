@@ -9,7 +9,7 @@ class Distributor extends Model
 {
     protected $fillable = [
         'name',
-        'storage_id',
+        // 'storage_id',
         // 'upazila_id',
         'distributor_type',
         'division_id',
@@ -24,6 +24,7 @@ class Distributor extends Model
         'has_pc',
         'has_live_app',
         'has_direct_sale',
+        'has_storage',
         'opening_date',
         'emergency_contact_name',
         'emergency_contact_number',

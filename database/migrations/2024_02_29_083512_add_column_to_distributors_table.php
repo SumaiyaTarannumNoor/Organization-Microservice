@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('distributors', function (Blueprint $table) {
-            $table->string('column1_name')->nullable()->change();
-            $table->string('column1_name')->nullable()->change();
+            $table->boolean('has_storage');
         });
     }
 

@@ -37,7 +37,7 @@ class DistributorController extends Controller
     {
             $request->validate([
                 'name' => 'required|string|max:255',
-                'storage_id' => 'required|exists:storages,id',
+                // 'storage_id' => 'required|exists:storages,id',
                 // 'upazila_id' => 'required|exists:upazilas,id',
                 'distributor_type' => 'required',
                 'division_id' => 'required',
@@ -52,6 +52,7 @@ class DistributorController extends Controller
                 'has_pc' => 'nullable|boolean',
                 'has_live_app' => 'nullable|boolean',
                 'has_direct_sale' => 'nullable|boolean',
+                'has_storage' => 'nullable|boolean',
                 'opening_date' => 'nullable|date',
                 'emergency_contact_name' => 'nullable|string|max:255',
                 'emergency_contact_number' => 'nullable|string|max:20',
@@ -76,7 +77,7 @@ class DistributorController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'storage_id' => 'required|exists:storages,id',
+            // 'storage_id' => 'required|exists:storages,id',
             // 'upazila_id' => 'required|exists:upazilas,id',
             'distributor_type' => 'required',
             'division_id' => 'required',
@@ -91,6 +92,7 @@ class DistributorController extends Controller
             'has_pc' => 'nullable|boolean',
             'has_live_app' => 'nullable|boolean',
             'has_direct_sale' => 'nullable|boolean',
+            'has_storage' => 'nullable|boolean',
             'opening_date' => 'nullable|date',
             'emergency_contact_name' => 'nullable|string|max:255',
             'emergency_contact_number' => 'nullable|string|max:20',

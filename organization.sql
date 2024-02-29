@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 29, 2024 at 06:35 AM
+-- Generation Time: Feb 29, 2024 at 09:45 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -174,7 +174,7 @@ INSERT INTO `distribution_assigned_areas` (`id`, `distributor_id`, `area_id`, `c
 CREATE TABLE `distributors` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `storage_id` bigint(20) UNSIGNED NOT NULL,
+  `storage_id` bigint(20) UNSIGNED DEFAULT NULL,
   `erp_id` bigint(20) UNSIGNED NOT NULL,
   `proprietor_name` varchar(255) DEFAULT NULL,
   `proprietor_dob` date DEFAULT NULL,
@@ -201,19 +201,20 @@ CREATE TABLE `distributors` (
   `division_id` bigint(20) UNSIGNED NOT NULL,
   `region_id` bigint(20) UNSIGNED NOT NULL,
   `area_id` bigint(20) UNSIGNED NOT NULL,
-  `distributor_type` varchar(255) DEFAULT NULL
+  `distributor_type` varchar(255) DEFAULT NULL,
+  `has_storage` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `distributors`
 --
 
-INSERT INTO `distributors` (`id`, `name`, `storage_id`, `erp_id`, `proprietor_name`, `proprietor_dob`, `address`, `mobile_number`, `has_printer`, `has_pc`, `has_live_app`, `has_direct_sale`, `opening_date`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `union`, `ward`, `village`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`, `division_id`, `region_id`, `area_id`, `distributor_type`) VALUES
-(1, 'Kalam', 2, 3, 'hsh', '1987-12-23', '56/2, Elm Road.', '4736189', 0, 1, 0, 1, '2025-03-08', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:31', '2024-02-21 22:40:45', 0, 0, 0, NULL),
-(2, 'Karim', 1, 1, 'Rahim', '1980-10-02', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '2015-03-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:35', '2024-02-19 02:36:35', 0, 0, 0, NULL),
-(3, 'Karim', 1, 1, 'Rahim', '1980-10-02', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '2015-03-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:37', '2024-02-21 22:40:28', 0, 0, 0, NULL),
-(4, 'Karim', 1, 1, 'Rahim', '1980-10-02', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '2015-03-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:39', '2024-02-19 02:36:39', 0, 0, 0, NULL),
-(5, 'Karim', 1, 1, 'Rahim', '1980-10-02', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '2015-03-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:39', '2024-02-19 02:36:39', 0, 0, 0, NULL);
+INSERT INTO `distributors` (`id`, `name`, `storage_id`, `erp_id`, `proprietor_name`, `proprietor_dob`, `address`, `mobile_number`, `has_printer`, `has_pc`, `has_live_app`, `has_direct_sale`, `opening_date`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relation`, `union`, `ward`, `village`, `status`, `created_by`, `updated_by`, `ip`, `browser`, `created_at`, `updated_at`, `division_id`, `region_id`, `area_id`, `distributor_type`, `has_storage`) VALUES
+(1, 'Kalam', 2, 3, 'hsh', '1987-12-23', '56/2, Elm Road.', '4736189', 0, 1, 0, 1, '2025-03-08', 'hqwbd', '458945394', 'ddkxm', 'bsds', 'jbs', 'hsba', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:31', '2024-02-21 22:40:45', 0, 0, 0, NULL, 0),
+(2, 'Karim', 1, 1, 'Rahim', '1980-10-02', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '2015-03-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:35', '2024-02-19 02:36:35', 0, 0, 0, NULL, 0),
+(3, 'Karim', 1, 1, 'Rahim', '1980-10-02', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '2015-03-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:37', '2024-02-21 22:40:28', 0, 0, 0, NULL, 0),
+(4, 'Karim', 1, 1, 'Rahim', '1980-10-02', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '2015-03-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:39', '2024-02-19 02:36:39', 0, 0, 0, NULL, 0),
+(5, 'Karim', 1, 1, 'Rahim', '1980-10-02', 'Sadarghat, road', '09875612453', 0, 0, 0, 0, '2015-03-23', 'Jamal', '458945394', 'employer', 'kharkharia', 'uttar badda', 'chilmari', 1, NULL, NULL, NULL, NULL, '2024-02-19 02:36:39', '2024-02-19 02:36:39', 0, 0, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -280,7 +281,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2024_02_19_041540_add_status_to_bank_accounts', 4),
 (13, '2024_02_20_045420_create_bank_accounts_table', 5),
 (14, '2024_02_28_085359_drop_column_from_table', 6),
-(15, '2024_02_29_050245_add_column_to_the_table', 7);
+(15, '2024_02_29_050245_add_column_to_the_table', 7),
+(16, '2024_02_29_083512_add_column_to_distributors_table', 8);
 
 -- --------------------------------------------------------
 
@@ -521,7 +523,7 @@ ALTER TABLE `districts`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
